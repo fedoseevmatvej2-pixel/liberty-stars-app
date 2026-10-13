@@ -416,7 +416,7 @@
       adm_stats: "/admin"
     };
     const cmd = commands[action] || "/start";
-    const link = `https://t.me/${BOT_USERNAME}?start=${cmd.replace('/', 'cmd_')}`;
+    const link = `https://t.me/${BOT_USERNAME}?start=${cmd.replace('/', '')}`;
     if (tg) {
       tg.openTelegramLink(link);
     } else {
