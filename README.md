@@ -1,1 +1,0 @@
-# liberty-stars-app
