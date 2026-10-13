@@ -78,6 +78,19 @@
   .game-card .name { font-size: 13px; font-weight: 600; color: #e0e0ea; }
   .game-card .hint { font-size: 10px; color: #6b6b7b; margin-top: 4px; }
 
+  .bonus-card {
+    background: linear-gradient(145deg, #1a1628, #221b36);
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 16px; padding: 18px; margin-bottom: 12px;
+    cursor: pointer; transition: transform .15s;
+  }
+  .bonus-card:active { transform: scale(.98); }
+  .bonus-card .row { display: flex; align-items: center; gap: 12px; }
+  .bonus-card .b-icon { font-size: 32px; }
+  .bonus-card .b-info { flex: 1; }
+  .bonus-card .b-name { font-size: 15px; font-weight: 700; color: #fff; }
+  .bonus-card .b-desc { font-size: 12px; color: #a0a0b0; margin-top: 4px; }
+
   .balance-card {
     background: linear-gradient(145deg, #15151f, #1d1d2a);
     border: 1px solid rgba(212,175,55,.15);
@@ -186,54 +199,102 @@
       <div class="page active" id="page-games">
         <div class="page-title">Игры <span>Liberty</span></div>
         <div class="games-grid">
-          <div class="game-card" onclick="openGame('slots')">
+          <div class="game-card" onclick="openBot('slots')">
             <div class="icon">🎰</div>
             <div class="name">Слоты Liberty</div>
             <div class="hint">x2 – x20</div>
           </div>
-          <div class="game-card" onclick="openGame('slots_biz')">
+          <div class="game-card" onclick="openBot('slots_biz')">
             <div class="icon">💼</div>
             <div class="name">Слоты Бизнеса</div>
             <div class="hint">x2 – x25</div>
           </div>
-          <div class="game-card" onclick="openGame('mines')">
+          <div class="game-card" onclick="openBot('mines')">
             <div class="icon">💣</div>
             <div class="name">Мины</div>
             <div class="hint">Поле 5×5</div>
           </div>
-          <div class="game-card" onclick="openGame('dice')">
+          <div class="game-card" onclick="openBot('dice')">
             <div class="icon">🎲</div>
             <div class="name">Кубик</div>
             <div class="hint">4-5-6 = x2</div>
           </div>
-          <div class="game-card" onclick="openGame('roulette')">
+          <div class="game-card" onclick="openBot('roulette')">
             <div class="icon">🎡</div>
             <div class="name">Рулетка</div>
             <div class="hint">x2 – x14</div>
           </div>
-          <div class="game-card" onclick="openGame('coin')">
+          <div class="game-card" onclick="openBot('coin')">
             <div class="icon">🪙</div>
             <div class="name">Монетка</div>
             <div class="hint">x2</div>
           </div>
         </div>
+        <div style="margin-top:20px">
+          <div class="bonus-card" onclick="switchPage('bonus')">
+            <div class="row">
+              <div class="b-icon">🎁</div>
+              <div class="b-info">
+                <div class="b-name">Бонусы и подарки</div>
+                <div class="b-desc">Ежедневный, колесо, кейсы</div>
+              </div>
+              <div style="color:#d4af37;font-size:20px">›</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- БОНУСЫ -->
+      <div class="page" id="page-bonus">
+        <div class="page-title">🎁 <span>Бонусы</span></div>
+        <div class="bonus-card" onclick="openBot('bonus_daily')">
+          <div class="row">
+            <div class="b-icon">📅</div>
+            <div class="b-info">
+              <div class="b-name">Ежедневный бонус</div>
+              <div class="b-desc">Заходи каждый день — получай звёзды</div>
+            </div>
+            <div style="color:#d4af37;font-size:20px">›</div>
+          </div>
+        </div>
+        <div class="bonus-card" onclick="openBot('bonus_wheel')">
+          <div class="row">
+            <div class="b-icon">🎡</div>
+            <div class="b-info">
+              <div class="b-name">Колесо фортуны</div>
+              <div class="b-desc">Крути и выигрывай до 100⭐</div>
+            </div>
+            <div style="color:#d4af37;font-size:20px">›</div>
+          </div>
+        </div>
+        <div class="bonus-card" onclick="openBot('bonus_case')">
+          <div class="row">
+            <div class="b-icon">📦</div>
+            <div class="b-info">
+              <div class="b-name">Кейсы</div>
+              <div class="b-desc">Открывай и получай призы</div>
+            </div>
+            <div style="color:#d4af37;font-size:20px">›</div>
+          </div>
+        </div>
+        <button class="action-btn secondary" style="margin-top:10px" onclick="switchPage('games')">⬅️ Назад</button>
       </div>
 
       <!-- БАЛАНС -->
       <div class="page" id="page-balance">
-        <div class="page-title">Баланс</div>
+        <div class="page-title">💰 <span>Баланс</span></div>
         <div class="balance-card">
           <div class="label">Твой баланс</div>
           <div class="value" id="balance-value">0<small>⭐</small></div>
         </div>
-        <button class="action-btn" onclick="toast('Скоро: пополнение через Stars')">💰 Пополнить</button>
-        <button class="action-btn secondary" onclick="toast('Скоро: ввод промокода')">🎟 Промокод</button>
-        <button class="action-btn secondary" onclick="toast('Скоро: история операций')">📜 История</button>
+        <button class="action-btn" onclick="openBot('deposit')">💰 Пополнить</button>
+        <button class="action-btn secondary" onclick="openBot('promo')">🎟 Промокод</button>
+        <button class="action-btn secondary" onclick="openBot('history')">📜 История</button>
       </div>
 
       <!-- ПРОФИЛЬ -->
       <div class="page" id="page-profile">
-        <div class="page-title">Профиль</div>
+        <div class="page-title">👤 <span>Профиль</span></div>
         <div class="profile-header">
           <div class="avatar" id="avatar-initial">?</div>
           <div class="name" id="profile-name">Гость</div>
@@ -243,16 +304,16 @@
         <div class="info-row"><span class="k">Баланс</span><span class="v" id="profile-balance">0⭐</span></div>
         <div class="info-row"><span class="k">Рефералов</span><span class="v">0</span></div>
         <div class="info-row"><span class="k">Заработано с реф.</span><span class="v">0⭐</span></div>
-        <button class="action-btn" style="margin-top:16px" onclick="shareRef()">🔗 Пригласить друга</button>
+        <button class="action-btn" style="margin-top:16px" onclick="openBot('ref')">🔗 Пригласить друга</button>
       </div>
 
       <!-- АДМИН -->
       <div class="page" id="page-admin">
         <div class="page-title">🛠 <span>Админ-панель</span></div>
-        <button class="action-btn" onclick="toast('Скоро: создание промокода')">🎟 Создать промокод</button>
-        <button class="action-btn" onclick="toast('Скоро: выдача звёзд')">💰 Выдать звёзды</button>
-        <button class="action-btn secondary" onclick="toast('Скоро: снятие звёзд')">💸 Снять звёзды</button>
-        <button class="action-btn secondary" onclick="toast('Скоро: статистика')">📊 Статистика</button>
+        <button class="action-btn" onclick="openBot('adm_promo')">🎟 Создать промокод</button>
+        <button class="action-btn" onclick="openBot('adm_give')">💰 Выдать звёзды</button>
+        <button class="action-btn secondary" onclick="openBot('adm_take')">💸 Снять звёзды</button>
+        <button class="action-btn secondary" onclick="openBot('adm_stats')">📊 Статистика</button>
       </div>
 
     </div>
@@ -277,6 +338,7 @@
 
 <script>
   const tg = window.Telegram?.WebApp;
+  const BOT_USERNAME = "Liberty_stars_bot";
   let user = { id: 0, first_name: "Гость", username: "" };
 
   if (tg) {
@@ -332,8 +394,34 @@
     });
   }
 
-  function openGame(game) {
-    toast('🎮 Игра "' + game + '" скоро откроется');
+  // Открытие бота с нужной командой
+  function openBot(action) {
+    const commands = {
+      slots: "/slots",
+      slots_biz: "/slots_biz",
+      mines: "/mines",
+      dice: "/dice",
+      roulette: "/roulette",
+      coin: "/coin",
+      deposit: "/deposit",
+      promo: "/promo",
+      history: "/history",
+      ref: "/ref",
+      bonus_daily: "/bonus",
+      bonus_wheel: "/wheel",
+      bonus_case: "/case",
+      adm_promo: "/admin",
+      adm_give: "/admin",
+      adm_take: "/admin",
+      adm_stats: "/admin"
+    };
+    const cmd = commands[action] || "/start";
+    const link = `https://t.me/${BOT_USERNAME}?start=${cmd.replace('/', 'cmd_')}`;
+    if (tg) {
+      tg.openTelegramLink(link);
+    } else {
+      window.open(link, "_blank");
+    }
   }
 
   function toast(text) {
@@ -348,15 +436,6 @@
     document.getElementById('balance-value').innerHTML = demoBalance + '<small>⭐</small>';
     document.getElementById('top-balance').textContent = demoBalance + " ⭐";
     document.getElementById('profile-balance').textContent = demoBalance + "⭐";
-  }
-
-  function shareRef() {
-    const link = "https://t.me/share/url?url=https://t.me/LibertyStarsBot&text=Играй в Liberty Stars!";
-    if (tg) {
-      tg.openTelegramLink(link);
-    } else {
-      window.open(link, "_blank");
-    }
   }
 </script>
 </body>
